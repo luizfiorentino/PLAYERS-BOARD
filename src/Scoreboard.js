@@ -36,6 +36,25 @@ export default function Scoreboard() {
     },
   ]);
 
+  // Defining the callback function
+  const incrementScore = (id) => {
+    const new_players_array = players.map((p) => {
+      // decide whether increment this players score or not
+      if (p.id === id) {
+        return {
+          // copying over the players object's data
+          ...p,
+          // now override the incremented score property
+          score: p.score + 1,
+        };
+      } else {
+        return p;
+      }
+    });
+    set_players(new_players_array);
+    console.log("Player clicked", id);
+  };
+
   // Using the spread operator: first "copy the array"
   // Then, sort it with the compare_score callback function
   const players_sorted =
@@ -61,7 +80,14 @@ export default function Scoreboard() {
       </p>
       <ul>
         {players_sorted.map((p, id) => (
-          <Player key={id} name={p.name} score={p.score} />
+          <Player
+            key={p.id}
+            id={p.id}
+            name={p.name}
+            score={p.score}
+            // Passing it down as a callback prop
+            incrementScore={incrementScore}
+          />
         ))}
       </ul>
       <AddPlayerForm />
