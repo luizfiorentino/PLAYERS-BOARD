@@ -5,6 +5,7 @@ export default function Player(props) {
     <div>
       <p>****</p>
       <h3>{props.name}</h3>
+      <p>{props.score}</p>
     </div>
   );
 }
