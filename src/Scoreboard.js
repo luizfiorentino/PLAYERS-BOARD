@@ -54,6 +54,26 @@ export default function Scoreboard() {
     set_players(new_players_array);
     console.log("Player clicked", id);
   };
+  // Add a "reset" button to the Scoreboard component, say at the top. When the user clicks on this
+  const reset_scores = () => {
+    const new_players_array = players.map((p) => ({
+      // Copying over the players object data
+      ...p,
+      // Override the incremented score property
+      score: 0,
+    }));
+
+    set_players(new_players_array);
+  };
+
+  // Add a "randomize" button, which randomized each player's scores to a random integer between 0 and 100.
+  const randomize_scores = () => {
+    const random_scores = players.map((p) => ({
+      ...p,
+      score: parseInt(Math.random() * 10),
+    }));
+    set_players(random_scores);
+  };
 
   // Using the spread operator: first "copy the array"
   // Then, sort it with the compare_score callback function
@@ -71,6 +91,8 @@ export default function Scoreboard() {
   return (
     <div className="Scoreboard">
       <h3> #### Check out the Scores #### </h3>
+      <button onClick={reset_scores}>Reset scores</button>{" "}
+      <button onClick={randomize_scores}>Randomize scores</button>
       <p>
         Sort by {""}
         <select onChange={change_sorting} value={sort_by}>
